@@ -75,7 +75,6 @@ export type CalculatorDef = {
   intro: string;
   fields: Field[];
   run: (values: Record<string, string>) => CalculatorOutput;
-  guide: { heading: string; body: string[] }[];
   related: string[];
   phase: 1 | 2;
 };
@@ -137,22 +136,6 @@ export const calculators: CalculatorDef[] = [
         rationale: `가로 ${width}m × 세로 ${depth}m로 바닥 면적 ${r.floorArea}m²를 구하고, 1평은 3.3058m²이므로 ${r.pyeong}평이 나왔어요. 벽 면적은 둘레 ${r.perimeter}m에 천장고 ${height}m를 곱한 값이에요.`,
       };
     },
-    guide: [
-      {
-        heading: "평과 m²의 관계",
-        body: [
-          "1평은 약 3.3058m²입니다. m²를 3.3058로 나누면 평수가 나옵니다.",
-          "분양 면적(공급 면적)과 실제 방 면적은 다릅니다. 이 계산기는 실제로 재서 입력한 치수 기준입니다.",
-        ],
-      },
-      {
-        heading: "벽 면적은 왜 따로 보나요",
-        body: [
-          "도배·페인트는 바닥이 아니라 벽 면적으로 자재량이 정해집니다.",
-          "벽 면적 = 벽 둘레 x 천장고이며, 여기서 창문과 문 면적을 빼면 실제 시공 면적이 됩니다.",
-        ],
-      },
-    ],
     related: ["paint", "wallpaper", "tile", "flooring"],
   },
 
@@ -218,22 +201,6 @@ export const calculators: CalculatorDef[] = [
         rationale: `벽 둘레 ${perimeter}m를 롤 폭 ${spec.rollWidth}m로 나눠 ${r.stripsNeeded}폭이 필요하고, 롤 하나에서 ${r.stripsPerRoll}폭이 나와서 ${r.requiredRolls}롤이 필요해요. 여기에 무늬 맞춤과 재단 손실을 고려해 여유분 10%를 더했어요.`,
       };
     },
-    guide: [
-      {
-        heading: "벽지는 왜 면적이 아니라 폭으로 세나요",
-        body: [
-          "벽지는 롤 폭 단위로 세로로 붙이기 때문에, 면적을 그대로 나누면 실제보다 적게 나옵니다.",
-          "벽 둘레를 롤 폭으로 나눠 필요한 폭 수를 먼저 구하고, 롤 하나에서 몇 폭이 나오는지로 롤 수를 계산해야 정확합니다.",
-        ],
-      },
-      {
-        heading: "무늬 벽지는 여유가 더 필요합니다",
-        body: [
-          "무늬가 있는 벽지는 옆 폭과 무늬를 맞춰야 해서 폭마다 무늬 반복 길이만큼 손실이 생깁니다.",
-          "무늬 반복 길이를 입력하면 이 손실이 자동으로 반영됩니다.",
-        ],
-      },
-    ],
     related: ["area", "paint", "molding"],
   },
 
@@ -299,22 +266,6 @@ export const calculators: CalculatorDef[] = [
         rationale: `벽 면적 ${r.paintableArea}m² × ${coats}회 도장 ÷ ${spreadRate}m²/L 기준으로 약 ${r.requiredLiters}L가 필요하고, 작업 중 롤러·트레이에 남는 양과 재도장을 고려해 여유분 10%를 더했어요.`,
       };
     },
-    guide: [
-      {
-        heading: "페인트 양은 이렇게 계산합니다",
-        body: [
-          "필요량(L) = 도장 면적(m²) x 도장 횟수 ÷ 도포 면적(m²/L)",
-          "도포 면적은 제품마다 다릅니다. 실내용 수성 페인트는 보통 1L로 8~12m²를 1회 도장할 수 있습니다.",
-        ],
-      },
-      {
-        heading: "왜 2회 도장을 기본으로 하나요",
-        body: [
-          "1회만 칠하면 아래 색이 비쳐 얼룩이 남기 쉽습니다. 특히 진한 색 위에 밝은 색을 칠할 때 그렇습니다.",
-          "색상 차이가 크면 프라이머를 먼저 바르고 2회 도장하는 편이 결과적으로 페인트를 덜 씁니다.",
-        ],
-      },
-    ],
     related: ["area", "wallpaper", "silicone"],
   },
 
@@ -370,22 +321,6 @@ export const calculators: CalculatorDef[] = [
         rationale: `타일 1장이 줄눈 ${joint}mm를 포함해 ${r.unitArea}m²를 차지해서, ${area}m²에는 ${r.requiredTiles}장이 필요해요. 여기에 재단 손실과 파손을 고려해 여유분 10%를 더한 ${r.recommendedTiles}장을 1박스 ${perBox}장으로 나눴어요.`,
       };
     },
-    guide: [
-      {
-        heading: "줄눈 두께를 왜 넣나요",
-        body: [
-          "타일은 줄눈 간격을 두고 붙이기 때문에 실제로 타일 1장이 차지하는 면적은 (가로+줄눈) x (세로+줄눈)입니다.",
-          "줄눈을 빼고 계산하면 필요한 장수가 실제보다 많게 나옵니다.",
-        ],
-      },
-      {
-        heading: "여유분은 얼마나 잡아야 하나요",
-        body: [
-          "모서리 재단, 시공 중 파손, 나중에 깨졌을 때 교체용까지 감안해 보통 10% 정도를 더 준비합니다.",
-          "패턴 시공이나 대각선 시공은 재단 손실이 커지므로 15% 이상 잡는 편이 안전합니다.",
-        ],
-      },
-    ],
     related: ["area", "silicone", "flooring"],
   },
 
@@ -427,22 +362,6 @@ export const calculators: CalculatorDef[] = [
         rationale: `바닥 면적 ${area}m²를 장판 폭 ${rollWidth}m로 나눠 ${r.requiredLength}m가 필요하고, 재단 손실을 고려해 여유분 10%를 더했어요.`,
       };
     },
-    guide: [
-      {
-        heading: "장판은 길이로 삽니다",
-        body: [
-          "장판은 정해진 폭의 롤로 판매되므로, 면적을 폭으로 나눈 길이를 구매합니다.",
-          "방 폭보다 장판 폭이 넓으면 이음 없이 한 장으로 깔 수 있어 마감이 깔끔합니다.",
-        ],
-      },
-      {
-        heading: "이음이 생길 때",
-        body: [
-          "방 폭이 장판 폭보다 넓으면 이음이 생깁니다. 이 경우 각 열마다 재단 여유가 따로 필요합니다.",
-          "이음 위치가 출입구나 가구 아래에 오도록 배치하면 눈에 덜 띕니다.",
-        ],
-      },
-    ],
     related: ["area", "wood", "molding"],
   },
 
@@ -494,22 +413,6 @@ export const calculators: CalculatorDef[] = [
         rationale: `바닥 면적 ${area}m²를 1박스 시공 면적 ${boxCoverage}m²로 나눠 ${r.requiredBoxes}박스가 필요하고, 재단 손실을 고려해 여유분 10%를 더한 뒤 박스 단위로 올림했어요.`,
       };
     },
-    guide: [
-      {
-        heading: "박스 단위로 계산하는 이유",
-        body: [
-          "마루는 박스 단위로 판매되고, 박스마다 시공 가능한 면적이 표기되어 있습니다.",
-          "필요 면적을 박스당 시공 면적으로 나눈 뒤 올림하면 구매 박스 수가 나옵니다.",
-        ],
-      },
-      {
-        heading: "생산 로트를 맞추세요",
-        body: [
-          "같은 제품이라도 생산 시기에 따라 색상이 미세하게 다를 수 있습니다.",
-          "나중에 추가 구매하면 색차가 보일 수 있으므로 필요한 수량을 한 번에 구매하는 편이 안전합니다.",
-        ],
-      },
-    ],
     related: ["area", "flooring", "molding"],
   },
 
@@ -549,15 +452,6 @@ export const calculators: CalculatorDef[] = [
         rationale: `시공 둘레 ${perimeter}m를 1본 길이 ${barLength}m로 나눠 ${r.requiredBars}본이 필요하고, 코너를 45도로 잘라 맞출 때 생기는 손실을 고려해 여유분 10%를 더했어요.`,
       };
     },
-    guide: [
-      {
-        heading: "코너 손실을 감안하세요",
-        body: [
-          "몰딩은 코너에서 45도로 잘라 맞추기 때문에 자투리가 남습니다.",
-          "코너가 많은 공간일수록 여유분을 넉넉히 잡아야 중간에 모자라지 않습니다.",
-        ],
-      },
-    ],
     related: ["area", "wallpaper", "silicone"],
   },
 
@@ -602,22 +496,6 @@ export const calculators: CalculatorDef[] = [
         rationale: `시공 길이 ${jointLength}m × 폭 ${jointWidth}mm × 깊이 ${jointDepth}mm로 약 ${r.volumeMl}mL가 필요하고, ${tubeVolume}mL 통 기준 ${r.requiredTubes}통이에요. 초기 토출 손실과 재시공을 고려해 여유분 10%를 더했어요.`,
       };
     },
-    guide: [
-      {
-        heading: "실리콘 사용량 계산식",
-        body: [
-          "사용량(mL) = 시공 길이(m) x 줄눈 폭(mm) x 줄눈 깊이(mm)",
-          "줄눈 폭과 깊이는 보통 비슷하게 잡습니다. 폭이 넓을수록 사용량이 빠르게 늘어납니다.",
-        ],
-      },
-      {
-        heading: "기존 실리콘 제거를 잊지 마세요",
-        body: [
-          "기존 실리콘 위에 덧바르면 잘 붙지 않고 곰팡이가 그대로 남습니다.",
-          "제거제와 헤라로 완전히 걷어낸 뒤 건조시키고 시공해야 오래갑니다.",
-        ],
-      },
-    ],
     related: ["tile", "molding", "paint"],
   },
 ];

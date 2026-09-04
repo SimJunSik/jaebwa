@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { Logo } from "@/components/brand/Logo";
+import { ADSENSE_CLIENT, ADSENSE_ENABLED } from "@/config/ads";
 import { site } from "@/config/site";
 import { calculators } from "@/lib/calculators/registry";
 import "./globals.css";
@@ -38,9 +40,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <main className="mx-auto max-w-3xl px-4 py-8">{children}</main>
 
+        {ADSENSE_ENABLED ? (
+          <Script
+            id="adsbygoogle-init"
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        ) : null}
+
         <footer className="mt-14 border-t border-line bg-white">
           <div className="mx-auto max-w-3xl space-y-3 px-4 py-8 text-sm text-ink-soft">
             <p className="font-medium text-ink">{site.slogan}</p>
+            <nav className="flex gap-4">
+              <Link href="/" className="hover:text-ink">
+                홈
+              </Link>
+              <Link href="/privacy" className="hover:text-ink">
+                개인정보처리방침
+              </Link>
+            </nav>
             <AffiliateDisclosure variant="footer" />
             <p className="text-xs">
               계산 결과는 참고용이에요. 실제 시공 조건과 제품 사양에 따라 필요한 양이 달라질 수 있어요.
