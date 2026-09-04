@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // vercel CLI 가 로컬에 남기는 빌드 산출물. 우리 코드가 아니다.
+    ".vercel/**",
   ]),
 ]);
 
