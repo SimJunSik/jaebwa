@@ -12,7 +12,7 @@ export const site = {
    * 공개 문의 이메일. 개인정보처리방침에 표시된다.
    * 비어 있으면 문의 항목이 렌더링되지 않는다 — 애드센스 심사에는 있는 편이 유리하다.
    */
-  contact: "",
+  contact: "wnstlr24.alarmcon@gmail.com",
   /** 개인정보처리방침 시행일 */
   privacyEffectiveDate: "2026년 9월 5일",
 } as const;
