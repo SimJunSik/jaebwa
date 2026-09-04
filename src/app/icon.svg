@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#B7F34A"/>
+  <text x="32" y="40" text-anchor="middle" font-family="Pretendard, system-ui, -apple-system, sans-serif" font-size="34" font-weight="700" fill="#202124">재</text>
+  <g fill="#202124" opacity="0.55">
+    <rect x="12" y="49" width="1.8" height="6" rx="0.9"/>
+    <rect x="21" y="49" width="1.8" height="4" rx="0.9"/>
+    <rect x="30" y="49" width="1.8" height="6" rx="0.9"/>
+    <rect x="39" y="49" width="1.8" height="4" rx="0.9"/>
+    <rect x="48" y="49" width="1.8" height="6" rx="0.9"/>
+  </g>
+</svg>

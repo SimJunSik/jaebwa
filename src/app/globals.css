@@ -1,0 +1,44 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css");
+@import "tailwindcss";
+
+/* 재봐 브랜드 토큰 */
+@theme {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
+
+  /* 라임은 항상 배경으로만 쓴다. 밝아서 글자로 쓰면 대비가 안 나온다. */
+  --color-brand: #b7f34a;
+  --color-brand-dark: #a3de33;
+  /* 라임 배경 위 은은한 구분선 */
+  --color-brand-line: #d3f58f;
+
+  --color-ink: #202124;
+  --color-ink-soft: #5f6165;
+
+  --color-paper: #fafaf7;
+  --color-line: #e9e9e3;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* 모바일에서 숫자 입력 스피너가 좁은 필드를 더 좁게 만들지 않도록 제거 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* 워드마크 밑에 깔리는 자(ruler) 눈금 */
+.ruler-ticks {
+  background-image: repeating-linear-gradient(
+    to right,
+    currentColor 0 1.5px,
+    transparent 1.5px 6px
+  );
+}
