@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { Logo } from "@/components/brand/Logo";
 import { ADSENSE_CLIENT, ADSENSE_ENABLED } from "@/config/ads";
@@ -41,17 +40,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="mx-auto max-w-3xl px-4 py-8">{children}</main>
 
         {/*
-          beforeInteractive 여야 서버 HTML 에 <script> 가 그대로 박힌다.
-          afterInteractive 는 preload 링크만 남기고 스크립트를 클라이언트에서 만들어서,
-          애드센스 심사 크롤러가 스니펫을 못 찾을 수 있다.
+          애드센스 스크립트는 서버 HTML 에 그대로 박혀야 심사 크롤러가 찾는다.
+          next/script 는 strategy 와 무관하게 preload 링크만 남기고 실제 <script> 를
+          클라이언트에서 만들기 때문에 여기서는 쓰지 않는다. React 19 가 이 태그를
+          head 로 hoist 해준다.
         */}
         {ADSENSE_ENABLED ? (
-          <Script
-            id="adsbygoogle-init"
+          // eslint-disable-next-line @next/next/no-sync-scripts
+          <script
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
             crossOrigin="anonymous"
-            strategy="beforeInteractive"
           />
         ) : null}
 
