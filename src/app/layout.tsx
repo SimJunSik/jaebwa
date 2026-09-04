@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   title: { default: site.seoTitle, template: `%s | ${site.name}` },
   description: site.description,
   openGraph: { siteName: site.name, locale: "ko_KR", type: "website" },
+  verification: {
+    // 네이버 서치어드바이저 소유 확인. 제거하면 사이트 등록이 해제된다.
+    other: { "naver-site-verification": "dfd9e0d8395c4a5ae80e073a863f49b78bcb12df" },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
