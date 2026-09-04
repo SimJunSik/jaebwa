@@ -46,7 +46,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           head 로 hoist 해준다.
         */}
         {ADSENSE_ENABLED ? (
-          // eslint-disable-next-line @next/next/no-sync-scripts
           <script
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
