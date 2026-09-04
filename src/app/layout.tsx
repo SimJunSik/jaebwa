@@ -40,13 +40,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <main className="mx-auto max-w-3xl px-4 py-8">{children}</main>
 
+        {/*
+          beforeInteractive 여야 서버 HTML 에 <script> 가 그대로 박힌다.
+          afterInteractive 는 preload 링크만 남기고 스크립트를 클라이언트에서 만들어서,
+          애드센스 심사 크롤러가 스니펫을 못 찾을 수 있다.
+        */}
         {ADSENSE_ENABLED ? (
           <Script
             id="adsbygoogle-init"
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
             crossOrigin="anonymous"
-            strategy="afterInteractive"
+            strategy="beforeInteractive"
           />
         ) : null}
 
