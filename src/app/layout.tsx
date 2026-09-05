@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { Logo } from "@/components/brand/Logo";
 import { ADSENSE_CLIENT, ADSENSE_ENABLED } from "@/config/ads";
+import { GA_ENABLED, GA_MEASUREMENT_ID } from "@/config/analytics";
 import { site } from "@/config/site";
 import { calculators } from "@/lib/calculators/registry";
 import "./globals.css";
@@ -38,6 +39,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </header>
 
         <main className="mx-auto max-w-3xl px-4 py-8">{children}</main>
+
+        {/*
+          GA4. gtag 를 전역에 만들어야 lib/affiliate/tracking.ts 의
+          affiliate_click / calculation_complete 이벤트가 전송된다. (§9, §25)
+        */}
+        {GA_ENABLED ? (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`,
+              }}
+            />
+          </>
+        ) : null}
 
         {/*
           애드센스 스크립트는 서버 HTML 에 그대로 박혀야 심사 크롤러가 찾는다.

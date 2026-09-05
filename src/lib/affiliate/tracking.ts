@@ -25,8 +25,9 @@ export const AFFILIATE_CLICK_EVENT = "affiliate_click";
 export function trackAffiliateClick(event: AffiliateClickEvent): void {
   if (typeof window === "undefined") return;
   try {
-    window.gtag?.("event", AFFILIATE_CLICK_EVENT, event);
-    window.dataLayer?.push({ event: AFFILIATE_CLICK_EVENT, ...event });
+    // gtag 가 있으면 그쪽만 쓴다. 둘 다 쏘면 GTM 을 붙였을 때 중복 집계된다.
+    if (window.gtag) window.gtag("event", AFFILIATE_CLICK_EVENT, event);
+    else window.dataLayer?.push({ event: AFFILIATE_CLICK_EVENT, ...event });
   } catch {
     // analytics 실패가 링크 이동을 막지 않게 한다.
   }
@@ -36,8 +37,8 @@ export function trackAffiliateClick(event: AffiliateClickEvent): void {
 export function trackCalculationComplete(calculator: string): void {
   if (typeof window === "undefined") return;
   try {
-    window.gtag?.("event", "calculation_complete", { calculator });
-    window.dataLayer?.push({ event: "calculation_complete", calculator });
+    if (window.gtag) window.gtag("event", "calculation_complete", { calculator });
+    else window.dataLayer?.push({ event: "calculation_complete", calculator });
   } catch {
     // noop
   }

@@ -79,9 +79,9 @@ export default function PrivacyPage() {
 
       <Section title="4. 방문 통계">
         <p>
-          서비스 개선을 위해 페이지 조회, 계산 완료, 링크 클릭 같은 익명 이용 통계를 수집할 수
-          있습니다. 이 정보는 개인을 식별하지 않는 형태로 집계되며, 어떤 계산기가 많이 쓰이는지와
-          같은 통계 목적에만 사용됩니다.
+          서비스 개선을 위해 Google Analytics를 사용합니다. 페이지 조회, 계산 완료, 링크 클릭 같은
+          이용 통계가 익명으로 수집되며, 어떤 계산기가 많이 쓰이는지와 같은 통계 목적에만
+          사용됩니다.
         </p>
       </Section>
 
@@ -98,6 +98,7 @@ export default function PrivacyPage() {
         <p>본 사이트는 다음 외부 서비스를 이용합니다.</p>
         <ul className="ml-4 list-disc space-y-1">
           <li>Google AdSense — 광고 게재</li>
+          <li>Google Analytics — 방문 통계</li>
           <li>쿠팡파트너스 — 제휴 링크</li>
           <li>Vercel — 웹사이트 호스팅</li>
         </ul>
