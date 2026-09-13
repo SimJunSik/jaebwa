@@ -103,3 +103,77 @@ test("계산 결과는 판매 규격에 맞춰 변형되지 않는다 (명세 §
   // 구매 추천 단계에서만 판매 단위로 변환된다.
   assert.equal(getPaintPurchaseRecommendation(6.6).minimumPurchaseAmount, 7);
 });
+
+/* ── 집 전체 계산 ─────────────────────────────────────── */
+
+import { calculateHouse } from "../src/lib/calculators/house.ts";
+
+const SILK = { rollWidth: 1.06, rollLength: 15.6, patternRepeat: 0 };
+const HOUSE_DEFAULTS = {
+  wallpaper: SILK,
+  openingRatio: 0,
+  paint: { coats: 2, spreadRate: 10 },
+  flooring: { rollWidth: 1.8 },
+  wood: { boxCoverage: 2.4 },
+};
+
+test("집 전체: 방별로 올림한 폭 수를 합산한다", () => {
+  // 둘레 11.4m 인 방은 11.4/1.06 = 10.75 → 11폭 으로 올림되어야 한다
+  const r = calculateHouse({
+    ...HOUSE_DEFAULTS,
+    rooms: [{ id: "a", name: "방", width: 3.0, depth: 2.7, height: 2.3 }],
+  });
+  assert.equal(r.rooms[0].perimeter, 11.4);
+  assert.equal(r.rooms[0].strips, 11);
+});
+
+test("집 전체: 전체 둘레를 한 번에 나누는 것보다 많이 나온다 (명세대로)", () => {
+  const rooms = [
+    { id: "a", name: "거실", width: 4.5, depth: 3.6, height: 2.3 },
+    { id: "b", name: "안방", width: 3.6, depth: 3.3, height: 2.3 },
+    { id: "c", name: "작은방", width: 3.0, depth: 2.7, height: 2.3 },
+  ];
+  const r = calculateHouse({ ...HOUSE_DEFAULTS, rooms });
+
+  // 방별 올림: ceil(16.2/1.06)=16, ceil(13.8/1.06)=14, ceil(11.4/1.06)=11 → 41폭
+  assert.equal(r.totals.strips, 41);
+
+  // 전체 둘레를 한 번에 나누면 ceil(41.4/1.06)=40폭 — 1폭 적다
+  const naive = Math.ceil(r.totals.perimeter / 1.06);
+  assert.equal(naive, 40);
+  assert.ok(r.totals.strips > naive, "방별 올림이 전체 나누기보다 커야 한다");
+});
+
+test("집 전체: 바닥 면적은 단순 합산", () => {
+  const r = calculateHouse({
+    ...HOUSE_DEFAULTS,
+    rooms: [
+      { id: "a", name: "1", width: 4, depth: 3, height: 2.3 },
+      { id: "b", name: "2", width: 2, depth: 3, height: 2.3 },
+    ],
+  });
+  assert.equal(r.totals.floorArea, 18); // 12 + 6
+  assert.equal(r.flooring.requiredLength, 10); // 18 / 1.8
+});
+
+test("집 전체: 개구부 비율이 페인트 양에 반영된다", () => {
+  const rooms = [{ id: "a", name: "방", width: 4, depth: 3, height: 2.5 }];
+  const full = calculateHouse({ ...HOUSE_DEFAULTS, rooms });
+  const withOpenings = calculateHouse({ ...HOUSE_DEFAULTS, openingRatio: 0.2, rooms });
+  assert.ok(withOpenings.paint.requiredLiters < full.paint.requiredLiters);
+  // 벽 면적 35m² 의 80% = 28m², 2회 도장 / 10 = 5.6L
+  assert.equal(withOpenings.paint.requiredLiters, 5.6);
+});
+
+test("집 전체: 천장고가 다른 방도 각자 롤당 폭 수로 계산된다", () => {
+  const r = calculateHouse({
+    ...HOUSE_DEFAULTS,
+    rooms: [
+      { id: "a", name: "낮은방", width: 3, depth: 3, height: 2.5 },
+      { id: "b", name: "높은방", width: 3, depth: 3, height: 2.6 },
+    ],
+  });
+  // 2.5m → floor(15.6/2.55)=6폭, 2.6m → floor(15.6/2.65)=5폭
+  assert.equal(r.rooms[0].stripsPerRoll, 6);
+  assert.equal(r.rooms[1].stripsPerRoll, 5);
+});

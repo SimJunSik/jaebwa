@@ -37,7 +37,30 @@ export default function Home() {
 
       <section id="calculators" className="scroll-mt-6">
         <h2 className="text-xl font-bold">무엇을 계산할까요?</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+
+        <Link
+          href="/house"
+          className="group mt-4 flex items-center gap-4 rounded-2xl bg-brand p-5 transition hover:bg-brand-dark"
+        >
+          <span aria-hidden className="text-3xl">
+            🏡
+          </span>
+          <span className="min-w-0">
+            <span className="block font-bold text-ink">집 전체 한 번에 계산하기</span>
+            <span className="mt-1 block text-sm leading-relaxed text-ink/70">
+              방을 여러 개 입력하면 벽지·페인트·장판·마루 총량이 한 번에 나와요.
+            </span>
+          </span>
+          <span
+            aria-hidden
+            className="ml-auto shrink-0 font-medium text-ink transition group-hover:translate-x-0.5"
+          >
+            →
+          </span>
+        </Link>
+
+        <p className="mt-6 text-sm font-medium text-ink-soft">자재 하나만 계산하기</p>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {calculators.map((c) => (
             <Link
               key={c.slug}

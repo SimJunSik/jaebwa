@@ -29,6 +29,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Logo className="text-xl" />
             </Link>
             <nav className="flex flex-wrap gap-x-3 gap-y-1 text-sm text-ink-soft">
+              <Link href="/house" className="font-medium text-ink hover:underline">
+                집 전체
+              </Link>
               {calculators.map((c) => (
                 <Link key={c.slug} href={`/${c.slug}`} className="hover:text-ink">
                   {c.name}
