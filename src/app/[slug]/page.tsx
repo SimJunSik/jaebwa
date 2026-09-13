@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { CalculatorView } from "@/components/calculator/CalculatorView";
+import { articlesForCalculator } from "@/data/articles";
 import { guides } from "@/data/guides";
 import { calculators, getCalculator } from "@/lib/calculators/registry";
 
@@ -33,6 +34,7 @@ export default async function CalculatorPage({ params }: Params) {
 
   const content = guides[def.slug];
   const related = def.related.map(getCalculator).filter((c) => c !== undefined);
+  const guideArticles = articlesForCalculator(def.slug).slice(0, 3);
 
   // FAQ 구조화 데이터 — 검색 결과에 질문이 함께 노출될 수 있다.
   const faqSchema = content?.faq.length
@@ -98,6 +100,28 @@ export default async function CalculatorPage({ params }: Params) {
                 </summary>
                 <p className="px-4 pb-4 text-sm leading-relaxed text-ink-soft">{f.a}</p>
               </details>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {/* 관련 가이드 — 계산 다음에 읽을거리로 이어지게 */}
+      {guideArticles.length > 0 ? (
+        <section>
+          <h2 className="text-xl font-bold">{def.name} 시공 전에 읽어보세요</h2>
+          <div className="mt-3 space-y-2">
+            {guideArticles.map((a) => (
+              <Link
+                key={a.slug}
+                href={`/guide/${a.slug}`}
+                className="block rounded-xl border border-line bg-white p-4 transition hover:border-ink/25"
+              >
+                <p className="flex items-center gap-2 text-sm font-semibold">
+                  <span aria-hidden>{a.emoji}</span>
+                  {a.title}
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-ink-soft">{a.summary}</p>
+              </Link>
             ))}
           </div>
         </section>

@@ -34,6 +34,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   {c.name}
                 </Link>
               ))}
+              <Link href="/guide" className="font-medium text-ink hover:underline">
+                가이드
+              </Link>
             </nav>
           </div>
         </header>
@@ -75,6 +78,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <nav className="flex gap-4">
               <Link href="/" className="hover:text-ink">
                 홈
+              </Link>
+              <Link href="/guide" className="hover:text-ink">
+                인테리어 가이드
               </Link>
               <Link href="/privacy" className="hover:text-ink">
                 개인정보처리방침
