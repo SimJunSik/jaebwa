@@ -125,5 +125,5 @@ export const selfWallpaper: Article = {
     },
   ],
   calculators: ["wallpaper", "area"],
-  related: ["material-spare", "rental-interior", "wallpaper-choice"],
+  related: ["wallpaper-area-myth", "wallpaper-choice", "material-spare"],
 };

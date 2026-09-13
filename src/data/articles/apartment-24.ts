@@ -134,5 +134,5 @@ export const apartment24: Article = {
     },
   ],
   calculators: ["area", "wallpaper", "flooring"],
-  related: ["interior-budget", "material-spare", "interior-order"],
+  related: ["wallpaper-area-myth", "material-spare", "interior-budget"],
 };

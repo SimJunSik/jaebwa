@@ -97,5 +97,5 @@ export const wallpaperChoice: Article = {
     },
   ],
   calculators: ["wallpaper", "area"],
-  related: ["self-wallpaper", "paint-color", "interior-budget"],
+  related: ["wallpaper-area-myth", "self-wallpaper", "paint-color"],
 };

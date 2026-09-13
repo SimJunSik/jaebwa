@@ -11,10 +11,12 @@ import { selfWallpaper } from "./self-wallpaper";
 import { siliconeReplace } from "./silicone-replace";
 import { tileOverlay } from "./tile-overlay";
 import type { Article } from "./types";
+import { wallpaperAreaMyth } from "./wallpaper-area-myth";
 import { wallpaperChoice } from "./wallpaper-choice";
 
 /** 목록 노출 순서 */
 export const articles: Article[] = [
+  wallpaperAreaMyth,
   selfWallpaper,
   selfPainting,
   interiorOrder,
