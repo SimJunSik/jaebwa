@@ -6,6 +6,7 @@
  */
 
 import type { ArticleSection } from "@/data/articles";
+import { WallpaperRollDiagram } from "./WallpaperRollDiagram";
 
 /** **굵게** 만 처리한다. 그 외 마크다운 문법은 지원하지 않는다. */
 function withBold(text: string) {
@@ -56,6 +57,8 @@ export function ArticleBody({ sections }: { sections: ArticleSection[] }) {
               </ul>
             )
           ) : null}
+
+          {s.diagram === "wallpaper-roll" ? <WallpaperRollDiagram /> : null}
 
           {s.table ? (
             <div className="mt-4 overflow-x-auto rounded-xl border border-line bg-white">

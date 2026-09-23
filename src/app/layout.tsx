@@ -40,6 +40,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/guide" className="font-medium text-ink hover:underline">
                 가이드
               </Link>
+              <Link href="/specs" className="font-medium text-ink hover:underline">
+                규격
+              </Link>
             </nav>
           </div>
         </header>
@@ -78,12 +81,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="mt-14 border-t border-line bg-white">
           <div className="mx-auto max-w-3xl space-y-3 px-4 py-8 text-sm text-ink-soft">
             <p className="font-medium text-ink">{site.slogan}</p>
-            <nav className="flex gap-4">
+            <nav className="flex flex-wrap gap-x-4 gap-y-2">
               <Link href="/" className="hover:text-ink">
                 홈
               </Link>
+              <Link href="/house" className="hover:text-ink">
+                집 전체 계산기
+              </Link>
               <Link href="/guide" className="hover:text-ink">
                 인테리어 가이드
+              </Link>
+              <Link href="/specs" className="hover:text-ink">
+                자재 규격 정리
+              </Link>
+              <Link href="/about" className="hover:text-ink">
+                소개
+              </Link>
+              <Link href="/contact" className="hover:text-ink">
+                문의
               </Link>
               <Link href="/privacy" className="hover:text-ink">
                 개인정보처리방침

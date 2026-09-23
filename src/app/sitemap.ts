@@ -14,6 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: a.publishedAt,
       priority: 0.6,
     })),
+    { url: `${site.url}/specs`, priority: 0.7 },
+    { url: `${site.url}/about`, priority: 0.5 },
+    { url: `${site.url}/contact`, priority: 0.4 },
     { url: `${site.url}/privacy`, priority: 0.3 },
   ];
 }

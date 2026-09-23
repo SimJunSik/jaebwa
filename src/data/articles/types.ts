@@ -9,6 +9,8 @@ export type ArticleSection = {
   list?: { ordered?: boolean; items: string[] };
   /** 강조 박스 — 주의사항이나 요약 */
   callout?: { title: string; body: string };
+  /** 직접 그린 도해를 끼워 넣는다 */
+  diagram?: "wallpaper-roll";
 };
 
 export type Article = {
