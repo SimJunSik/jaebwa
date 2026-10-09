@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { articles } from "@/data/articles";
 import { calculators } from "@/lib/calculators/registry";
+
+// 다른 페이지에는 모두 있는데 홈만 비어 있었다.
+// www 리다이렉트와 vercel.app 배포 URL 이 별개 페이지로 취급되지 않게 명시한다.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   const featured = articles.slice(0, 4);
